@@ -1,0 +1,499 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+@mixin heightWidth($height, $width) {
+    height: $height;
+    width: $width;
+}
+@mixin heightWidthPosition($height, $width, $topPos, $leftPos){
+    @include heightWidth($height, $width);
+    @include positionStyle($topPos, $leftPos)
+}
+@mixin hairStyle($top, $left, $rotate) {
+    top: $top;
+    left: $left;
+    transform: rotateZ($rotate);
+}
+
+@mixin hairStyleRight($topPos, $leftPos, $rotate, $border1, $border2) {
+    @include hairStyle($topPos, $leftPos, $rotate);
+    border-top-right-radius: $border1 $border2;
+    border-right: 2px solid#333333;
+}
+
+@mixin hairStyleLeft($topPos, $leftPos, $rotate, $border1, $border2) {
+    @include hairStyle($topPos, $leftPos, $rotate);
+    border-top-left-radius: $border1 $border2;
+    border-left: 2px solid#333333;
+}
+
+@mixin positionStyle($topPos, $leftPos) {
+    position: absolute;
+    top: $topPos;
+    left: $leftPos;
+}
+
+@mixin pseudoElements($height, $width, $bgc) {
+    content: '';
+    display: block;
+    height: $height;
+    width: $width;
+    background-color: $bgc;
+}
+@mixin pseudoElementsPosition($height, $width, $bgc, $topPos, $leftPos){
+    @include pseudoElements($height, $width, $bgc);
+    @include positionStyle($topPos, $leftPos)
+}
+@mixin finger($width, $height, $rotate, $topPos, $leftPos) {
+    width: $width;
+    height: $height;
+    border-radius: 60%;
+    transform: rotate($rotate);
+    background-color: #333333;
+    @include positionStyle($topPos, $leftPos);
+}
+
+.wrapper {
+    @include heightWidth(410px, 210px);
+    position: relative;
+    .skin {
+        @include heightWidth(100%, 100%);
+        border-radius: 210px;
+        background-color: #FFCB4F;
+    }
+    .hair {
+        li {
+            @include heightWidth(50px, 20px);
+            position: absolute;
+        }
+        &.front {
+            li {
+                z-index: 1;
+            }
+             :nth-child(1) {
+                @include hairStyleRight(26px, 0, -60deg, 15px, 35px);
+            }
+             :nth-child(2) {
+                @include hairStyleRight(10px, 20px, -45deg, 15px, 45px);
+            }
+             :nth-child(3) {
+                @include hairStyleRight(-8px, 42px, -30deg, 12px, 40px);
+            }
+             :nth-child(4) {
+                @include hairStyleRight(-15px, 70px, -15deg, 15px, 35px);
+            }
+             :nth-child(5) {
+                @include hairStyleRight(-20px, 95px, 5deg, 10px, 25px);
+            }
+             :nth-child(6) {
+                @include hairStyleLeft(-10px, 124px, 15deg, 15px, 35px);
+            }
+             :nth-child(7) {
+                @include hairStyleLeft(-8px, 150px, 30deg, 12px, 40px);
+            }
+             :nth-child(8) {
+                @include hairStyleLeft(10px, 166px, 45deg, 18px, 35px);
+            }
+             :nth-child(9) {
+                @include hairStyleLeft(26px, 180px, 60deg, 20px, 40px);
+            }
+        }
+        &.behind {
+            li {
+                z-index: -1;
+            }
+             :nth-child(1) {
+                @include hairStyleRight(50px, 0px, -85deg, 8px, 40px);
+            }
+             :nth-child(2) {
+                @include hairStyleRight(16px, 18px, -60deg, 10px, 40px);
+            }
+             :nth-child(3) {
+                @include hairStyleRight(-4px, 42px, -40deg, 12px, 40px);
+            }
+             :nth-child(4) {
+                @include hairStyleRight(-23px, 75px, -18deg, 10px, 40px);
+            }
+             :nth-child(5) {
+                @include hairStyleLeft(-23px, 103px, 18deg, 10px, 40px);
+            }
+             :nth-child(6) {
+                @include hairStyleLeft(-18px, 122px, 15deg, 15px, 40px);
+            }
+             :nth-child(7) {
+                @include hairStyleLeft(-4px, 150px, 40deg, 12px, 40px);
+            }
+             :nth-child(8) {
+                @include hairStyleLeft(16px, 172px, 60deg, 10px, 40px);
+            }
+             :nth-child(9) {
+                @include hairStyleLeft(50px, 190px, 85deg, 8px, 40px);
+            }
+        }
+    }
+    .hairBand {
+        @include heightWidth(4px, 216px);
+        background-color: #000;
+        @include positionStyle(105px, 50%);
+        transform: translateX(-50%);
+        &::before {
+            @include pseudoElementsPosition(15px, 216px, #444444, -15px, 0px);
+            border-top-left-radius: 30px 10px;
+            border-top-right-radius: 30px 10px;
+        }
+        &::after {
+            @include pseudoElementsPosition(15px, 216px, #444444, 4px, 0px);
+            border-bottom-left-radius: 30px 10px;
+            border-bottom-right-radius: 30px 10px;
+        }
+    }
+    .hairBandUp {
+        @include heightWidthPosition(38px, 176px, 88px, 50%);
+        transform: translateX(-50%);
+        &::before {
+            @include pseudoElementsPosition(100%, 10px, #999, 0, 0);
+        }
+        &::after {
+            @include pseudoElements(100%, 10px, #999);
+            position: absolute;
+            right: 0;
+        }
+    }
+    .ocularRegion {
+        @include heightWidthPosition(88px, 176px, 61.5px, 50%);
+        transform: translateX(-50%);
+        .eyeglass {
+            @include heightWidth(91px, 91px);
+            border: 8px solid #CCCCCC;
+            border-radius: 50%;
+            &.eyeglassLeft {
+                @include positionStyle(0, 0);
+                box-shadow: inset 2px 2px 0px 1px #666666;
+            }
+            &.eyeglassRight {
+                @include positionStyle(0, 85px);
+                box-shadow: inset -2px 2px 0px 1px #666666;
+            }
+            .eye {
+                @include heightWidth(70px, 72px);
+                border-radius: 50%;
+                background-color: #F5F5F5;
+                &.eyeLeft {
+                    @include positionStyle(4px, 4px);
+                    box-shadow: inset 3px 3px 10px 2px #B6B6B6;
+                    &::before {
+                        @include pseudoElementsPosition(22px, 22px, #91695C, 50%, 65%);
+                        transform: translate(-50%, -50%);
+                    }
+                    &::after {
+                        @include pseudoElementsPosition(8px, 8px, #333333, 50%, 65%);
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                &.eyeRight {
+                    @include positionStyle(4px, -1px);
+                    box-shadow: inset -3px 3px 10px 2px #B6B6B6;
+                    &::before {
+                        @include pseudoElementsPosition(22px, 22px, #91695C, 50%, 35%);
+                        transform: translate(-50%, -50%);
+                    }
+                    &::after {
+                        @include pseudoElementsPosition(8px, 8px, #333333, 50%, 35%);
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                &::before {
+                    border-radius: 50%;
+                    box-shadow: inset 0px 0px 10px 10px rgb(117, 84, 73);
+                }
+                &::after {
+                    border-radius: 50%;
+                    box-shadow: 0px 0px 10px 4px rgb(223, 164, 110);
+                }
+            }
+        }
+    }
+    .mouth {
+        @include heightWidthPosition(20px, 90px, 180px, 50%);
+        border-bottom: 3px solid #E19F3B;
+        border-bottom-left-radius: 70px 35px;
+        border-bottom-right-radius: 70px 35px;
+        transform: translate(-50%, 0);
+    }
+    .arm {
+        @include heightWidth(108px, 18px);
+        &.left {
+            @include positionStyle(240px, -18px);
+            border-top-left-radius: 15px 50px;
+            background: linear-gradient(to right, rgba(253, 216, 130, 1) 0%, rgba(253, 205, 91, 1) 100%);
+            &::before {
+                @include pseudoElementsPosition(45px, 10px, none, 30px, 18px);
+                @include positionStyle(30px, 18px);
+                transform: rotate(5deg);
+                border-left: 3px solid #CEA440;
+                border-radius: 50%;
+            }
+        }
+        &.right {
+            @include positionStyle(240px, 100%);
+            border-top-right-radius: 15px 50px;
+            background: linear-gradient(to right, rgba(215, 171, 66, 1) 0%, rgba(255, 203, 79, 1) 100%);
+            &::before {
+                @include pseudoElementsPosition(45px, 10px, none, 30px, -9px);
+                transform: rotate(-5deg);
+                border-right: 3px solid #CEA440;
+                border-radius: 50%;
+            }
+        }
+    }
+    .gloves {
+        @include heightWidth(10px, 26px);
+        background-color: #333333;
+        border-radius: 40%;
+        &.left {
+            @include positionStyle(343px, -24px);
+            .first {
+                @include finger(12px, 28px, 10deg, 0, -3px);
+            }
+            .second {
+                @include finger(14px, 36px, -10deg, 2px, 7px);
+            }
+            .third {
+                @include finger(14px, 30px, -38deg, 1px, 17px);
+            }
+        }
+        &.right {
+            @include positionStyle(343px, 208px);
+            .first {
+                @include finger(12px, 28px, -20deg, 0, 17px);
+            }
+            .second {
+                @include finger(14px, 36px, 10deg, 2px, 7px);
+            }
+            .third {
+                @include finger(14px, 30px, 38deg, 1px, -4px);
+            }
+        }
+    }
+    .chest {
+        @include heightWidthPosition(75px, 130px, 240px, 50%);
+        background-color: #6C9BC5;
+        border: 2px solid #4076A6;
+        border-bottom: none;
+        transform: translateX(-50%);
+        &::before {
+            @include pseudoElementsPosition(0px, 41px, none, -3px, -42px);
+            border-top: 3px solid #4076A6;
+        }
+        &::after {
+            @include pseudoElementsPosition(0px, 41px, none, -3px, 127px);
+            border-top: 3px solid #4076A6;
+        }
+    }
+    .bgc {
+        @include heightWidthPosition(80px, 160px, 394px, 50%);
+        background-color: #fff;
+        transform: translateX(-50%);
+    }
+    .trouserPocket {
+        @include heightWidthPosition(95px, 206px, 313px, 2px);
+        border-top: 2px solid #4076A6;
+        border-bottom-left-radius: 140px 120px;
+        border-bottom-right-radius: 140px 120px;
+        background: linear-gradient(to bottom, rgba(110,156,197,1) 0%,rgba(109,156,198,1) 40%,rgba(105,155,192,1) 50%,rgba(97,137,176,1) 60%,rgba(94,131,169,1) 70%,rgba(79,108,143,1) 80%,rgba(75,101,135,1) 90%,rgba(75,101,134,1) 100%); 
+        overflow: hidden;
+        &::before {
+            @include pseudoElementsPosition(60px, 60px, none, -30px, -20px);
+            border-right: 2px solid #4076A6;
+            border-bottom: 2px solid #4076A6;
+            border-radius: 50%;
+        }
+        &::after {
+            @include pseudoElementsPosition(60px, 60px, none, -30px, 166px);
+            border-left: 2px solid #4076A6;
+            border-bottom: 2px solid #4076A6;
+            border-radius: 50%;
+        }
+    }
+    .baldric {
+        @include heightWidth(70px, 20px);
+        background-color: #6A98C1;
+        border: 2px solid #4279AA;
+        &.left {
+            transform: rotate(-64deg);
+            @include positionStyle(206px, 17px);
+            &::before {
+                @include pseudoElementsPosition(32px, 18px, #fff, -22px, 0px);
+                transform: rotate(64deg);
+            }
+            &::after {
+                @include pseudoElementsPosition(12px, 12px, #313131, 55px, 3px);
+                border-radius: 50%;
+            }
+        }
+        &.right {
+            transform: rotate(64deg);
+            @include positionStyle(206px, 173px);
+            &::before {
+                @include pseudoElementsPosition(32px, 18px, #fff, -22px, 0px);
+                transform: rotate(-64deg);
+            }
+            &::after {
+                @include pseudoElementsPosition(12px, 12px, #313131, 55px, 3px);
+                border-radius: 50%;
+            }
+        }
+    }
+    .chestMark {
+        @include heightWidthPosition(54px, 54px, 268px, 50%);
+        border: 2px solid #4883B8;
+        border-top: none;
+        transform: translateX(-50%);
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+        &::before {
+            @include pseudoElementsPosition(4px, 100%, none, 0px, 0px);
+            border-bottom: 2px solid #4883B8;
+            border-bottom-left-radius: 20px 10px;
+            border-bottom-right-radius: 20px 10px;
+        }
+        .outerCircle {
+            @include heightWidthPosition(34px, 34px, 12px, 8px);
+            background-color: #353535;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .square {
+                @include heightWidth(22px, 22px);
+                transform: rotate(45deg);
+                background-color: #7BA6CB;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .innerCircle {
+                    @include heightWidth(12px, 12px);
+                    border-radius: 50%;
+                    background-color: #353535;
+                    &::before {
+                        @include pseudoElementsPosition(3px, 14px, #353535, 1px, 9px);
+                        transform: rotate(-45deg);
+                    }
+                    &::after {
+                        @include pseudoElementsPosition(3px, 18px, #7BA6CB, 4px, 8px);
+                        transform: rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+    .leg {
+        @include heightWidthPosition(24px, 110px, 394px, 50px);
+        border-top: 1px solid rgb(134, 181, 218);
+        .left {
+            @include heightWidthPosition(24px, 34px, 0px, 16px);
+            background: linear-gradient(to bottom, rgba(79,108,143,1) 0%, rgba(75, 101, 134, 1) 100%);
+            box-shadow: 1px 0px 1px 0px rgba(75, 101, 135, 1);
+            &::before {
+                @include pseudoElementsPosition(24px, 26px, none, 0px, -16px);
+                background: linear-gradient(to bottom, rgba(79,108,143,1) 0%, rgba(75, 101, 134, 1) 100%);
+            }
+            &::after {
+                @include pseudoElementsPosition(0px, 0px, none, -1px, -16px);
+                border: 13px solid #fff;
+                border-top-color: transparent;
+                border-right-color: transparent;
+            }
+        }
+        .right {
+            @include heightWidthPosition(24px, 34px, 0px, 59px);
+            background: linear-gradient(to bottom, rgba(79,108,143,1) 0%, rgba(75, 101, 134, 1) 100%);
+            box-shadow: -1px 0px 1px 0px rgba(75, 101, 135, 1);
+            &::before {
+                @include pseudoElementsPosition(24px, 26px, none, 0px, 24px);
+                background: linear-gradient(to bottom, rgba(79,108,143,1) 0%, rgba(75, 101, 134, 1) 100%);
+            }
+            &::after {
+                @include pseudoElementsPosition(0px, 0px, none, -1px, 26px);
+                border: 13px solid #fff;
+                border-top-color: transparent;
+                border-left-color: transparent;
+            }
+        }
+    }
+    .shoe {
+        @include heightWidth(13px, 44px);
+        background-color: #222222;
+        &.left {
+            @include positionStyle(420px, 56px);
+            border-top-left-radius: 25px 30px;
+            transform: rotate(-4deg);
+            &::before {
+                @include pseudoElementsPosition(4px, 28px, #222, -2px, 16px);
+                border-top-left-radius: 30px 20px;
+            }
+            &::after {
+                @include pseudoElementsPosition(3px, 46px, #222, 14px, -1px);
+                border-radius: 20px 40px;
+                box-shadow: 0px -1px 1px 0px #222;
+            }
+        }
+        &.right {
+            @include positionStyle(420px, 108px);
+            border-top-right-radius: 25px 30px;
+            transform: rotate(4deg);
+            &::before {
+                @include pseudoElementsPosition(4px, 28px, #222, -2px, 0px);
+                border-top-right-radius: 30px 20px;
+            }
+            &::after {
+                @include pseudoElementsPosition(3px, 46px, #222, 14px, -1px);
+                border-radius: 20px 40px;
+                box-shadow: 0px -1px 1px 0px #222;
+            }
+        }
+    }
+}
